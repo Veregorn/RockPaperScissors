@@ -8,6 +8,9 @@
       
     </body>
     <script>
+        // Global variables
+        let userWins = 0;
+        let computerWins = 0;
         // First I'm going to create a function that returns a random integer between min and max (both included)
         function getRndInteger(min, max) {
             return Math.floor(Math.random() * (max - min + 1) ) + min;
@@ -23,7 +26,62 @@
                 return "Scissors";
             }
         }
-        const computerElection = computerPlay();
-        console.log(computerElection);
+        // Return the text with only the first letter capitalized. Be careful! text can have some letters capitalized yet
+        function capitalize(text) {
+            let lowerCased = text.toLowerCase();
+            let firstChar = lowerCased.substr(0,1);
+            let firstCharUpperCased = firstChar.toUpperCase();
+            return lowerCased.replace(firstChar,firstCharUpperCased);
+        }
+        // Next I'm going to create a function that plays one round of the game. It has 2 inputs (user and computer elections). The
+        // output is a string declaring the winner of the round
+        function playRound() {
+            // Lets generate computer election
+            const computerSelection = computerPlay();
+            // Ask the user for his/her election
+            const playerSelection = prompt("Please enter your election (Rock / Paper / Scissors): ");
+            // We need to format the string in order to have only the first letter capitalized
+            const formattedPlayerSelec = capitalize(playerSelection);
+
+            if (formattedPlayerSelec === computerSelection) {
+                return "Draw! Nobody wins";
+            } else if (formattedPlayerSelec === "Rock" && computerSelection === "Paper") {
+                computerWins++;
+                return "You lose! Paper beats Rock";
+            } else if (formattedPlayerSelec === "Rock" && computerSelection === "Scissors") {
+                userWins++;
+                return "You win! Rock beats Scissors";
+            } else if (formattedPlayerSelec === "Paper" && computerSelection === "Scissors") {
+                computerWins++;
+                return "You lose! Scissors beats Paper";
+            } else if (formattedPlayerSelec === "Paper" && computerSelection === "Rock") {
+                userWins++;
+                return "You win! Paper beats Rock";
+            } else if (formattedPlayerSelec === "Scissors" && computerSelection === "Paper") {
+                userWins++;
+                return "You win! Scissors beats Paper";
+            } else if (formattedPlayerSelec === "Scissors" && computerSelection === "Rock") {
+                computerWins++;
+                return "You lose! Rock beats Scissors";
+            }
+        }
+        // The last step consist in create a function that plays 5 rounds and declare the winner after that
+        function game() {
+            for (let i = 0; i < 5; i++){
+                let roundResult = playRound();
+                console.log(roundResult);
+            }
+            console.log(`You have won ${userWins} times and computer has won ${computerWins} times`);
+            if (userWins > computerWins) {
+                console.log("You win the game!!! :-)");
+            } else if (computerWins > userWins) {
+                console.log("Computer wins the game!!! :-(");
+            } else {
+                console.log("Nobody wins");
+            }
+        }
+
+        //Let's play!!!
+        game();
     </script>
 </html>
