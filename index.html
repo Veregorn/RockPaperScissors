@@ -8,9 +8,7 @@
       <button id="Rock">Rock</button>
       <button id="Paper">Paper</button>
       <button id="Scissors">Scissors</button>
-      <div>
-
-      </div>
+      <div id="container"></div>
     </body>
     <script>
         // Global variables
@@ -31,46 +29,40 @@
                 return "Scissors";
             }
         }
-        // Return the text with only the first letter capitalized. Be careful! text can have some letters capitalized yet
-        /*
-        function capitalize(text) {
-            let lowerCased = text.toLowerCase();
-            let firstChar = lowerCased.substr(0,1);
-            let firstCharUpperCased = firstChar.toUpperCase();
-            return lowerCased.replace(firstChar,firstCharUpperCased);
-        }
-        */
         // Next I'm going to create a function that plays one round of the game. It has 2 inputs (user and computer elections). The
         // output is a string declaring the winner of the round
         function playRound(playerSelection) {
             // Lets generate computer election
             const computerSelection = computerPlay();
-            // Ask the user for his/her election
-            //const playerSelection = prompt("Please enter your election (Rock / Paper / Scissors): ");
-            // We need to format the string in order to have only the first letter capitalized
-            //const formattedPlayerSelec = capitalize(playerSelection);
+            // Select the container 'div' with a query
+            const container = document.querySelector('#container');
+            // Create a new 'div' for the result of the round
+            const roundResult = document.createElement('div');
+            roundResult.classList.add('roundResult');
 
             if (playerSelection === computerSelection) {
-                console.log("Draw! Nobody wins");
+                roundResult.textContent = 'Draw! Nobody wins';
             } else if (playerSelection === "Rock" && computerSelection === "Paper") {
                 computerWins++;
-                console.log("You lose! Paper beats Rock");
+                roundResult.textContent = 'You lose! Paper beats Rock';
             } else if (playerSelection === "Rock" && computerSelection === "Scissors") {
                 userWins++;
-                console.log("You win! Rock beats Scissors");
+                roundResult.textContent = 'You win! Rock beats Scissors';
             } else if (playerSelection === "Paper" && computerSelection === "Scissors") {
                 computerWins++;
-                console.log("You lose! Scissors beats Paper");
+                roundResult.textContent = 'You lose! Scissors beats Paper';
             } else if (playerSelection === "Paper" && computerSelection === "Rock") {
                 userWins++;
-                console.log("You win! Paper beats Rock");
+                roundResult.textContent = 'You win! Paper beats Rock';
             } else if (playerSelection === "Scissors" && computerSelection === "Paper") {
                 userWins++;
-                console.log("You win! Scissors beats Paper");
+                roundResult.textContent = 'You win! Scissors beats Paper';
             } else if (playerSelection === "Scissors" && computerSelection === "Rock") {
                 computerWins++;
-                console.log("You lose! Rock beats Scissors");
+                roundResult.textContent = 'You lose! Rock beats Scissors';
             }
+            // At last, append the child (DOM)
+            container.appendChild(roundResult);
         }
         // Add event listeners to the buttons created, calling the function to play a round on each click
         const buttons = document.querySelectorAll('button');
@@ -81,10 +73,6 @@
         });
         // The last step consist in create a function that plays 5 rounds and declare the winner after that
         function game() {
-            /*for (let i = 0; i < 5; i++){
-                let roundResult = playRound();
-                console.log(roundResult);
-            }*/
             console.log(`You have won ${userWins} times and computer has won ${computerWins} times`);
             if (userWins > computerWins) {
                 console.log("You win the game!!! :-)");
