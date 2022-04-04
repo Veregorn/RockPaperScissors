@@ -5,7 +5,12 @@
         <title>Rock Paper Scissors</title>
     </head>
     <body>
-      
+      <button id="Rock">Rock</button>
+      <button id="Paper">Paper</button>
+      <button id="Scissors">Scissors</button>
+      <div>
+
+      </div>
     </body>
     <script>
         // Global variables
@@ -27,50 +32,59 @@
             }
         }
         // Return the text with only the first letter capitalized. Be careful! text can have some letters capitalized yet
+        /*
         function capitalize(text) {
             let lowerCased = text.toLowerCase();
             let firstChar = lowerCased.substr(0,1);
             let firstCharUpperCased = firstChar.toUpperCase();
             return lowerCased.replace(firstChar,firstCharUpperCased);
         }
+        */
         // Next I'm going to create a function that plays one round of the game. It has 2 inputs (user and computer elections). The
         // output is a string declaring the winner of the round
-        function playRound() {
+        function playRound(playerSelection) {
             // Lets generate computer election
             const computerSelection = computerPlay();
             // Ask the user for his/her election
-            const playerSelection = prompt("Please enter your election (Rock / Paper / Scissors): ");
+            //const playerSelection = prompt("Please enter your election (Rock / Paper / Scissors): ");
             // We need to format the string in order to have only the first letter capitalized
-            const formattedPlayerSelec = capitalize(playerSelection);
+            //const formattedPlayerSelec = capitalize(playerSelection);
 
-            if (formattedPlayerSelec === computerSelection) {
-                return "Draw! Nobody wins";
-            } else if (formattedPlayerSelec === "Rock" && computerSelection === "Paper") {
+            if (playerSelection === computerSelection) {
+                console.log("Draw! Nobody wins");
+            } else if (playerSelection === "Rock" && computerSelection === "Paper") {
                 computerWins++;
-                return "You lose! Paper beats Rock";
-            } else if (formattedPlayerSelec === "Rock" && computerSelection === "Scissors") {
+                console.log("You lose! Paper beats Rock");
+            } else if (playerSelection === "Rock" && computerSelection === "Scissors") {
                 userWins++;
-                return "You win! Rock beats Scissors";
-            } else if (formattedPlayerSelec === "Paper" && computerSelection === "Scissors") {
+                console.log("You win! Rock beats Scissors");
+            } else if (playerSelection === "Paper" && computerSelection === "Scissors") {
                 computerWins++;
-                return "You lose! Scissors beats Paper";
-            } else if (formattedPlayerSelec === "Paper" && computerSelection === "Rock") {
+                console.log("You lose! Scissors beats Paper");
+            } else if (playerSelection === "Paper" && computerSelection === "Rock") {
                 userWins++;
-                return "You win! Paper beats Rock";
-            } else if (formattedPlayerSelec === "Scissors" && computerSelection === "Paper") {
+                console.log("You win! Paper beats Rock");
+            } else if (playerSelection === "Scissors" && computerSelection === "Paper") {
                 userWins++;
-                return "You win! Scissors beats Paper";
-            } else if (formattedPlayerSelec === "Scissors" && computerSelection === "Rock") {
+                console.log("You win! Scissors beats Paper");
+            } else if (playerSelection === "Scissors" && computerSelection === "Rock") {
                 computerWins++;
-                return "You lose! Rock beats Scissors";
+                console.log("You lose! Rock beats Scissors");
             }
         }
+        // Add event listeners to the buttons created, calling the function to play a round on each click
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach((button) => {
+            button.addEventListener('click', () => {
+                playRound(button.id);
+            });
+        });
         // The last step consist in create a function that plays 5 rounds and declare the winner after that
         function game() {
-            for (let i = 0; i < 5; i++){
+            /*for (let i = 0; i < 5; i++){
                 let roundResult = playRound();
                 console.log(roundResult);
-            }
+            }*/
             console.log(`You have won ${userWins} times and computer has won ${computerWins} times`);
             if (userWins > computerWins) {
                 console.log("You win the game!!! :-)");
