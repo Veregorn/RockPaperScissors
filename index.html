@@ -3,8 +3,12 @@
     <head>
         <meta charset="utf-8">
         <title>Rock Paper Scissors</title>
+        <link href="rockPaperScissors.css" rel="stylesheet" type="text/css">
     </head>
     <body>
+        <div id="title">
+            <h1>ROCK PAPER SCISSORS GAME</h1>
+        </div>
         <div id="counterSpace">
             <div id="playerSpace">
                 <h1 class="title">Player Points</h1>
@@ -16,14 +20,16 @@
             </div>
         </div>
         <div id="buttonSpace">
-            <button id="Rock">Rock</button>
-            <button id="Paper">Paper</button>
-            <button id="Scissors">Scissors</button>
+            <img id="Rock" src="rock.png"/>
+            <img id="Paper" src="paper.png"/>
+            <img id="Scissors" src="scissors.png"/>
         </div>
-        <div id="roundSpace">
-            <h1>Game Summary</h1>
+        <div id="footer">
+            <div id="roundSpace">
+                <h1>Game Summary</h1>
+            </div>
+            <div id="resultSpace"></div>
         </div>
-        <div id="resultSpace"></div>
     </body>
     <script>
         // Global variables
@@ -34,7 +40,7 @@
         function getRndInteger(min, max) {
             return Math.floor(Math.random() * (max - min + 1) ) + min;
         }
-        
+
         // Next I'm going to create a function that converts the integer returned by 'getRndInteger' in a proper value for the game
         function computerPlay() {
             const num = getRndInteger(1,3);
@@ -87,33 +93,51 @@
             const playerPoints = document.querySelector('#playerPoints');
             // Select computer points text
             const computerPoints = document.querySelector('#computerPoints');
+            // Introduce some sound effects
+            const boo = new Audio('boo.m4a');
+            const clap = new Audio('clap.m4a');
+            const draw = new Audio('draw.m4a');
 
             if (playerSelection === computerSelection) {
                 roundResult.textContent = 'Draw! Nobody wins';
+                roundResult.classList.add('draw');
+                draw.play();
             } else if (playerSelection === "Rock" && computerSelection === "Paper") {
                 computerWins++;
                 roundResult.textContent = 'You lose! Paper beats Rock';
+                roundResult.classList.add('lose');
                 computerPoints.textContent = computerWins;
+                boo.play();
             } else if (playerSelection === "Rock" && computerSelection === "Scissors") {
                 userWins++;
                 roundResult.textContent = 'You win! Rock beats Scissors';
+                roundResult.classList.add('win');
                 playerPoints.textContent = userWins;
+                clap.play();
             } else if (playerSelection === "Paper" && computerSelection === "Scissors") {
                 computerWins++;
                 roundResult.textContent = 'You lose! Scissors beats Paper';
+                roundResult.classList.add('lose');
                 computerPoints.textContent = computerWins;
+                boo.play();
             } else if (playerSelection === "Paper" && computerSelection === "Rock") {
                 userWins++;
                 roundResult.textContent = 'You win! Paper beats Rock';
+                roundResult.classList.add('win');
                 playerPoints.textContent = userWins;
+                clap.play();
             } else if (playerSelection === "Scissors" && computerSelection === "Paper") {
                 userWins++;
                 roundResult.textContent = 'You win! Scissors beats Paper';
+                roundResult.classList.add('win');
                 playerPoints.textContent = userWins;
+                clap.play();
             } else if (playerSelection === "Scissors" && computerSelection === "Rock") {
                 computerWins++;
                 roundResult.textContent = 'You lose! Rock beats Scissors';
+                roundResult.classList.add('lose');
                 computerPoints.textContent = computerWins;
+                boo.play();
             }
             
             // At last, append the child (DOM)
@@ -128,10 +152,10 @@
         }
         
         // Add event listeners to the buttons created, calling the function to play a round on each click
-        const buttons = document.querySelectorAll('button');
-        buttons.forEach((button) => {
-            button.addEventListener('click', () => {
-                playRound(button.id);
+        const images = document.querySelectorAll('img');
+        images.forEach((image) => {
+            image.addEventListener('click', () => {
+                playRound(image.id);
             });
         });
 

@@ -1,0 +1,72 @@
+body {
+    background-color: black;
+    color:aliceblue;
+    width: 100%;
+}
+
+#title {
+    text-align: center;
+    color: rgb(255, 251, 0);
+}
+
+#counterSpace {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+#playerSpace {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    text-align: center;
+    color: rgb(0, 255, 13);
+}
+
+#computerSpace {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    text-align: center;
+    color: rgb(255, 0, 0);
+}
+
+#buttonSpace {
+    margin: 50px auto;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+}
+
+img {
+    margin: 0 auto;
+}
+
+img:hover {
+    opacity: 50%;
+}
+
+#footer {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+#roundSpace {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    text-align: center;
+}
+
+#resultSpace {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    text-align: center;
+}
+
+.lose {
+    color:rgb(255, 0, 0);
+}
+
+.win {
+    color: greenyellow;
+}
+
+.draw {
+    color: aliceblue;
+}
